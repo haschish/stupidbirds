@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sprite {
@@ -30,6 +31,7 @@ public class Sprite {
         this.vX = vX;
         this.vY = vY;
         this.bitmap = bitmap;
+        this.frames = new ArrayList<Rect>();
         this.frames.add(initFrame);
         this.bitmap = bitmap;
         this.timeForCurrentFrame = 0;
