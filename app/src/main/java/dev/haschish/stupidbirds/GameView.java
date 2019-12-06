@@ -117,6 +117,23 @@ public class GameView extends View {
         enemyBird.draw(canvas);
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int eventAction = event.getAction();
+
+        if (eventAction == MotionEvent.ACTION_DOWN)  {
+            if (event.getY() < playerBird.getBoundingBoxRect().top) {
+                playerBird.setVY(-100);
+                points--;
+            }
+            else if (event.getY() > (playerBird.getBoundingBoxRect().bottom)) {
+                playerBird.setVY(100);
+                points--;
+            }
+        }
+        return super.onTouchEvent(event);
+    }
+
     protected void update () {
         playerBird.update(timerInterval);
         enemyBird.update(timerInterval);

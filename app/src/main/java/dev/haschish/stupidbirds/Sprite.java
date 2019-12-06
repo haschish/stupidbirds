@@ -42,6 +42,10 @@ public class Sprite {
         this.padding = 20;
     }
 
+    public void setVY(double vY) {
+        this.vY = vY;
+    }
+
     public void addFrame (Rect frame) {
         frames.add(frame);
     }
