@@ -137,6 +137,18 @@ public class GameView extends View {
     protected void update () {
         playerBird.update(timerInterval);
         enemyBird.update(timerInterval);
+
+        if (playerBird.getY() + playerBird.getFrameHeight() > viewHeight) {
+            playerBird.setY(viewHeight - playerBird.getFrameHeight());
+            playerBird.setVY(-playerBird.getVY());
+            points--;
+        }
+        else if (playerBird.getY() < 0) {
+            playerBird.setY(0);
+            playerBird.setVY(-playerBird.getVY());
+            points--;
+        }
+
         invalidate();
     }
 

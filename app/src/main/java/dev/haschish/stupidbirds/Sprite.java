@@ -42,8 +42,36 @@ public class Sprite {
         this.padding = 20;
     }
 
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getVY() {
+        return vY;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
     public void setVY(double vY) {
         this.vY = vY;
+    }
+
+    public int getFrameHeight() {
+        return frameHeight;
+    }
+
+    public int getFrameWidth() {
+        return frameWidth;
     }
 
     public void addFrame (Rect frame) {
