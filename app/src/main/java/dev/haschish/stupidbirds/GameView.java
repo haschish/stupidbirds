@@ -122,11 +122,11 @@ public class GameView extends View {
 
         if (eventAction == MotionEvent.ACTION_DOWN)  {
             if (event.getY() < playerBird.getBoundingBoxRect().top) {
-                playerBird.setVY(-100);
+                playerBird.setVY(-200);
                 points--;
             }
             else if (event.getY() > (playerBird.getBoundingBoxRect().bottom)) {
-                playerBird.setVY(100);
+                playerBird.setVY(200);
                 points--;
             }
         }
@@ -151,6 +151,11 @@ public class GameView extends View {
         if (enemyBird.getX() < -enemyBird.getFrameWidth()) {
             teleportEnemy ();
             points +=10;
+        }
+
+        if (enemyBird.intersect(playerBird)) {
+            teleportEnemy ();
+            points -= 40;
         }
 
         invalidate();
