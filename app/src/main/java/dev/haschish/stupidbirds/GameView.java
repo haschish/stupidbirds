@@ -1,7 +1,6 @@
 package dev.haschish.stupidbirds;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -13,7 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 public class GameView extends View {
-    private int viewWeight;
+    private int viewWidth;
     private int viewHeight;
     private int points;
     private final int timerInterval = 30;
@@ -98,7 +97,7 @@ public class GameView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        viewWeight = w;
+        viewWidth = w;
         viewHeight = h;
     }
 
@@ -111,7 +110,7 @@ public class GameView extends View {
         p.setAntiAlias(true);
         p.setTextSize(55.0f);
         p.setColor(Color.WHITE);
-        canvas.drawText(points+"", viewWeight - 100, 70, p);
+        canvas.drawText(points+"", viewWidth - 100, 70, p);
 
         playerBird.draw(canvas);
         enemyBird.draw(canvas);
@@ -149,7 +148,18 @@ public class GameView extends View {
             points--;
         }
 
+        if (enemyBird.getX() < -enemyBird.getFrameWidth()) {
+            teleportEnemy ();
+            points +=10;
+        }
+
         invalidate();
     }
+
+    private void teleportEnemy () {
+        enemyBird.setX(viewWidth + Math.random() * 500);
+        enemyBird.setY(Math.random() * (viewHeight - enemyBird.getFrameHeight()));
+    }
+
 
 }
