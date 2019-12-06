@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.CountDownTimer;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class GameView extends View {
@@ -18,6 +19,7 @@ public class GameView extends View {
     private final int timerInterval = 30;
 
     private Sprite playerBird;
+    private Sprite enemyBird;
 
     class Timer extends CountDownTimer {
         public Timer() {
@@ -39,6 +41,7 @@ public class GameView extends View {
 
 
         createPlayer();
+        createEnemy();
         Timer t = new Timer();
         t.start();
     }
@@ -70,6 +73,27 @@ public class GameView extends View {
         }
     };
 
+    private void createEnemy () {
+        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.enemy);
+        int w = b.getWidth() / 5;
+        int h = b.getHeight() / 3;
+
+        Rect firstFrame = new Rect(4*w, 0, 5*w, h);
+
+        enemyBird = new Sprite(2000, 250, -300, 0, firstFrame, b);
+        for (int i = 0; i < 3; i++) {
+            for (int j = 4; j >= 0; j--) {
+                if (i == 0 && j == 4) {
+                    continue;
+                }
+                if (i ==2 && j == 0) {
+                    continue;
+                }
+                enemyBird.addFrame(new Rect(j*w, i*h, j*w+w, i*w+w));
+            }
+        }
+    }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -90,10 +114,12 @@ public class GameView extends View {
         canvas.drawText(points+"", viewWeight - 100, 70, p);
 
         playerBird.draw(canvas);
+        enemyBird.draw(canvas);
     }
 
     protected void update () {
         playerBird.update(timerInterval);
+        enemyBird.update(timerInterval);
         invalidate();
     }
 
